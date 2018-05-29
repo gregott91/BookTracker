@@ -1,0 +1,14 @@
+﻿@model SideNavigationViewModel
+
+<ul class="nav navbar-nav left-navbar">
+    @foreach (var item in Model.NavigationItems)
+    {
+        var className = "left-navbar-item";
+        if (Model.FocusedItem == item)
+        {
+            className += " focused-navbar-item";
+        }
+
+        <li class="@className"><a asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">@item.Name</a></li>
+    }
+</ul>

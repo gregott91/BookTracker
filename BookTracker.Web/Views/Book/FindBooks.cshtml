@@ -1,0 +1,40 @@
+﻿@using BookTracker.Views
+
+@{
+    Layout = "~/Views/Book/_Layout.cshtml";
+    ViewData[ViewDataConstants.RightViewBodyTitle] = "Find Books";
+}
+
+<div id="book-search-app" class="book-search-container">
+    <input class="book-search-input" v-model="bookSearchQuery" v-on:keyup.enter="searchBooks" />
+    <i class="fas fa-search book-search-icon" v-on:click="searchBooks"></i>
+</div>
+<div id="book-search-results-app" class="book-search-results-container">
+    <div v-if="isLoading" class="loading-indicator-container">
+        <i class="fas fa-book loading-indicator"></i>
+    </div>
+    <div v-else-if="results.length == 0">
+        No results
+    </div>
+    <div v-else>
+        <ul class="book-search-result-list">
+            <li v-for="result in results" class="book-result-card">
+                <div class="book-result-text-content">
+                    <div class="book-result-title">
+                        {{result.title}}
+                    </div>
+                    <div class="book-result-year">
+                        ({{result.year}})
+                    </div>
+                    <div class="book-result-authors">
+                        {{result.authors}}
+                    </div>
+                    <div class="book-result-description">
+                        {{result.description}}
+                    </div>
+                </div>
+                <img v-bind:src="result.coverImageUrl" class="book-result-image" />
+            </li>
+        </ul>
+    </div>
+</div>

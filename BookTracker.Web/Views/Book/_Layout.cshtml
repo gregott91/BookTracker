@@ -1,0 +1,25 @@
+﻿@using BookTracker.Views
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @{ 
+        Html.RenderPartial("_SideNav", new SideNavigationViewModel(ViewData[ViewDataConstants.RightViewBodyTitle].ToString(),
+            new List<SideNavigationItem>()
+            {
+               new SideNavigationItem("My Bookshelf", "Book", "Bookshelf"),
+               new SideNavigationItem("Interested In", "Book", "Bookshelf"),
+               new SideNavigationItem("Find Books", "Book", "FindBooks")
+            }));
+    }
+
+    <div class="navbar-body">
+        <h2>@ViewData[ViewDataConstants.RightViewBodyTitle]</h2>
+        <div>
+            @RenderBody()
+        </div>
+    </div>
+</div>
+

@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BookTracker.DAL\BookTracker.DAL.csproj" />
     <ProjectReference Include="..\BookTracker.Logic\BookTracker.Logic.csproj" />
+    <ProjectReference Include="..\BookTracker.Models\BookTracker.Models.csproj" />
   </ItemGroup>
 
 </Project>

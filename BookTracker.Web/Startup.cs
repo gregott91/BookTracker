@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BookTracker.Data;
 using BookTracker.Models;
 using BookTracker.Services;
+using BookTracker.Logic.ApiClient;
+using BookTracker.Models.ApiClient;
 
 namespace BookTracker
 {
@@ -35,6 +37,8 @@ namespace BookTracker
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IBooksClient, GoogleBooksClient>();
+            services.AddTransient(_ => new GoogleApiKey(Configuration["ApiKeys:BooksApiKey"]));
 
             services.AddMvc();
         }
