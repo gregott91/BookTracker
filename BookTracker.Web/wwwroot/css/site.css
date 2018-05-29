@@ -134,9 +134,18 @@ div.book-result-description {
 
 div.loading-indicator-container {
     text-align: center;
-    padding-top: 50px;
 }
 
-i.loading-indicator {
+i.search-results-book-icon {
     font-size: 50px;
+    margin-bottom: 16px;
+}
+
+div.no-results-text {
+    text-align: center;
+}
+
+div.error-result-text {
+    text-align: center;
+    color: #B00020;
 }

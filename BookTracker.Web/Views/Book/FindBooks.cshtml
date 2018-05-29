@@ -11,10 +11,15 @@
 </div>
 <div id="book-search-results-app" class="book-search-results-container">
     <div v-if="isLoading" class="loading-indicator-container">
-        <i class="fas fa-book loading-indicator"></i>
+        <i class="fas fa-book search-results-book-icon" id="loading-indicator"></i>
     </div>
-    <div v-else-if="results.length == 0">
-        No results
+    <div v-else-if="hasError" class="error-result-text">
+        <i class="fas fa-book search-results-book-icon"></i>
+        <div>{{errorText}}</div>
+    </div>
+    <div v-else-if="results.length == 0" class="no-results-text">
+        <i class="fas fa-book search-results-book-icon"></i>
+        <div>Please enter a search to display results</div>
     </div>
     <div v-else>
         <ul class="book-search-result-list">
