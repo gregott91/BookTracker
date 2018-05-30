@@ -23,23 +23,63 @@
     </div>
     <div v-else>
         <ul class="book-search-result-list">
-            <li v-for="result in results" class="book-result-card">
-                <div class="book-result-text-content">
-                    <div class="book-result-title">
-                        {{result.title}}
+            <li v-for="result in results" class="book-result-card-list-item" v-on:click="bookClicked(result)">
+                <div class="book-card book-result-card" v-show="result.isExpanded == false">
+                    <div class="book-result-text-content">
+                        <div class="book-result-title">
+                            {{result.title}}
+                        </div>
+                        <div class="book-result-year">
+                            ({{result.year}})
+                        </div>
+                        <div class="book-result-authors">
+                            {{result.authors}}
+                        </div>
+                        <div class="book-result-description">
+                            {{result.description}}
+                        </div>
                     </div>
-                    <div class="book-result-year">
-                        ({{result.year}})
-                    </div>
-                    <div class="book-result-authors">
-                        {{result.authors}}
-                    </div>
-                    <div class="book-result-description">
-                        {{result.description}}
-                    </div>
+                    <img v-bind:src="result.coverImageUrl" class="book-result-image" />
                 </div>
-                <img v-bind:src="result.coverImageUrl" class="book-result-image" />
             </li>
         </ul>
+    </div>
+</div>
+<div id="book-detail-app" class="book-detail-background" v-show="isDisplayed" v-on:click.self="closeDetail">
+    <div class="book-card book-detail-card">
+        <div>
+            <div class="book-detail-header">
+                <img class="book-detail-image" v-bind:src="focusedBook.coverImageUrl" />
+                <div class="book-detail-title-text-content">
+                    <div id="book-detail-title" class="book-result-title">
+                        {{focusedBook.title}}
+                    </div>
+                    <div>
+                        {{focusedBook.publishedDate}}
+                    </div>
+                    <div>
+                        {{focusedBook.authors}}
+                    </div>
+                    <div v-if="isNaN(parseInt(focusedBook.rating)) == false">
+                        <div class="book-detail-rating-stars">
+                            <i class="fas fa-star book-review-star" v-for="n in parseInt(focusedBook.rating)"></i>
+                            <i class="fas fa-star-half book-review-star" v-show="hasPartialStar()"></i>
+                        </div>
+                        <div class="book-detail-rating-value">
+                            {{focusedBook.rating}}<span class="book-rating-out-of">/5.0</span>
+                        </div>
+                        <div class="book-detail-rating-count">
+                            ({{focusedBook.ratingCount}})
+                        </div>
+                    </div>
+                    <div>
+                        {{focusedBook.categories}}
+                    </div>
+                </div>
+            </div>
+            <div id="book-detail-description" class="book-detail-description">
+                {{focusedBook.description}}
+            </div>
+        </div>
     </div>
 </div>

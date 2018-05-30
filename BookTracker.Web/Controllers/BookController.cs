@@ -39,10 +39,23 @@ namespace BookTracker.Controllers
             foreach (var result in results.Items)
             {
                 BookSearchResultViewModel model = new BookSearchResultViewModel();
+
                 model.Title = result.VolumeInfo?.Title;
-                model.Authors = string.Join(", ", result.VolumeInfo?.Authors);
                 model.Description = result.VolumeInfo?.Description;
                 model.CoverImageUrl = result.VolumeInfo?.ImageLinks.Thumbnail;
+                model.Rating = result.VolumeInfo?.AverageRating;
+                model.RatingCount = result.VolumeInfo?.RatingsCount;
+                model.PublishedDate = result.VolumeInfo?.PublishedDate;
+
+                if (result.VolumeInfo?.Authors != null)
+                {
+                    model.Authors = string.Join(", ", result.VolumeInfo?.Authors);
+                }
+
+                if (result.VolumeInfo?.Categories != null)
+                {
+                    model.Categories = string.Join(", ", result.VolumeInfo?.Categories);
+                }
 
                 DateTime bookDate;
                 if (DateTime.TryParse(result.VolumeInfo?.PublishedDate, out bookDate))

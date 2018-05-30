@@ -15,5 +15,11 @@ namespace BookTracker.Models.ApiClient
         public string Description { get; set; }
 
         public ImageLinks ImageLinks { get; set; }
+
+        public IEnumerable<string> Categories { get; set; }
+
+        public string AverageRating { get; set; }
+
+        public string RatingsCount { get; set; }
     }
 }

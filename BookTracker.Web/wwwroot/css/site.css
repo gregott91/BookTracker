@@ -84,20 +84,28 @@ ul.book-search-result-list {
     padding: 0px;
 }
 
-li.book-result-card {
+li.book-result-card-list-item {
     display: inline-block;
-    padding: 16px;
-    border-radius: 4px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     width: calc(50% - 16px);
     height: 168px;
     margin-right: 16px;
     margin-bottom: 16px;
     vertical-align: top;
+}
+
+div.book-card {
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+div.book-result-card {
+    display: inline-block;
+    width: 100%;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-    li.book-result-card:hover {
+    div.book-result-card:hover {
         background-color: rgb(227,227,227);
         cursor: pointer;
         box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -148,4 +156,66 @@ div.no-results-text {
 div.error-result-text {
     text-align: center;
     color: #B00020;
+}
+
+div.book-detail-background {
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+}
+
+div.book-detail-card {
+    background-color: white;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 50%;
+    display: table;
+}
+
+img.book-detail-image {
+    height: 192px;
+    width: 128px;
+    float: left;
+}
+
+div.book-detail-title-text-content {
+    vertical-align: top;
+    margin-left: 144px;
+    height: 192px;
+}
+
+div.book-detail-rating-stars {
+    font-size: 0px;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+i.book-review-star {
+    color: rgb(253, 210, 42);
+    font-size: 14px;
+}
+
+div.book-detail-rating-value {
+    display: inline-block;
+    margin-right: 6px;
+}
+
+div.book-detail-rating-count {
+    display: inline-block;
+}
+
+span.book-rating-out-of {
+    font-size: 11px;
+    color: #909090;
+}
+
+div.book-detail-description {
+    margin-top: 16px;
+    display: inline-block;
 }
