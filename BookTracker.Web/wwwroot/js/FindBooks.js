@@ -4,12 +4,22 @@ var bookDetailApp = new Vue({
     el: '#book-detail-app',
     data: {
         isDisplayed: false,
-        focusedBook: null
+        focusedBook: null,
+        isDescriptionExpanded: false,
+        isMarkAsMenuExpanded: false,
+        hideAddToButton: false,
+        isAddToMenuExpanded: false,
+        hideMarkAsButton: false
     },
     methods: {
         closeDetail: function () {
+            this.isDescriptionExpanded = false;
             this.isDisplayed = false;
             this.focusedBook.isExpanded = false;
+            this.isMarkAsMenuExpanded = false;
+            this.hideAddToButton = false;
+            this.hideMarkAsButton = false;
+            this.isAddToMenuExpanded = false;
         },
         hasPartialStar: function () {
             var intRating = parseInt(this.focusedBook.rating);
@@ -22,6 +32,30 @@ var bookDetailApp = new Vue({
             }
 
             return false;
+        },
+        expandDescription: function () {
+            this.isDescriptionExpanded = true;
+        },
+        collapseDescription: function () {
+            this.isDescriptionExpanded = false;
+        },
+        changeMarkAsMenu: function () {
+            if (!this.isMarkAsMenuExpanded) {
+                this.hideAddToButton = true;
+            }
+            
+            this.isMarkAsMenuExpanded = !this.isMarkAsMenuExpanded;
+        },
+        changeAddToMenu: function () {
+            if (!this.isAddToMenuExpanded) {
+                this.hideMarkAsButton = true;
+            }
+
+            this.isAddToMenuExpanded = !this.isAddToMenuExpanded;
+        },
+        afterLeave: function (el, done) {
+            this.hideAddToButton = false;
+            this.hideMarkAsButton = false;
         }
     }
 });

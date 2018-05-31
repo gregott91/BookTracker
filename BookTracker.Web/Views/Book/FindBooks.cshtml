@@ -47,39 +47,83 @@
 </div>
 <div id="book-detail-app" class="book-detail-background" v-show="isDisplayed" v-on:click.self="closeDetail">
     <div class="book-card book-detail-card">
-        <div>
-            <div class="book-detail-header">
-                <img class="book-detail-image" v-bind:src="focusedBook.coverImageUrl" />
-                <div class="book-detail-title-text-content">
-                    <div id="book-detail-title" class="book-result-title">
-                        {{focusedBook.title}}
+        <i class="fas fa-times detail-close-icon" v-on:click="closeDetail"></i>
+        <div class="book-detail-header">
+            <img class="book-detail-image" v-bind:src="focusedBook.coverImageUrl" />
+            <div class="book-detail-title-text-content">
+                <div id="book-detail-title" class="book-result-title">
+                    {{focusedBook.title}}
+                </div>
+                <div>
+                    {{focusedBook.publishedDate}}
+                </div>
+                <div>
+                    {{focusedBook.authors}}
+                </div>
+                <div v-if="isNaN(parseInt(focusedBook.rating)) == false">
+                    <div class="book-detail-rating-stars">
+                        <i class="fas fa-star book-review-star" v-for="n in parseInt(focusedBook.rating)"></i>
+                        <i class="fas fa-star-half book-review-star" v-show="hasPartialStar()"></i>
                     </div>
-                    <div>
-                        {{focusedBook.publishedDate}}
+                    <div class="book-detail-rating-value">
+                        {{focusedBook.rating}}<span class="book-rating-out-of">/5.0</span>
                     </div>
-                    <div>
-                        {{focusedBook.authors}}
-                    </div>
-                    <div v-if="isNaN(parseInt(focusedBook.rating)) == false">
-                        <div class="book-detail-rating-stars">
-                            <i class="fas fa-star book-review-star" v-for="n in parseInt(focusedBook.rating)"></i>
-                            <i class="fas fa-star-half book-review-star" v-show="hasPartialStar()"></i>
-                        </div>
-                        <div class="book-detail-rating-value">
-                            {{focusedBook.rating}}<span class="book-rating-out-of">/5.0</span>
-                        </div>
-                        <div class="book-detail-rating-count">
-                            ({{focusedBook.ratingCount}})
-                        </div>
-                    </div>
-                    <div>
-                        {{focusedBook.categories}}
+                    <div class="book-detail-rating-count">
+                        ({{focusedBook.ratingCount}})
                     </div>
                 </div>
+                <div>
+                    {{focusedBook.categories}}
+                </div>
             </div>
-            <div id="book-detail-description" class="book-detail-description">
-                {{focusedBook.description}}
+        </div>
+        <div id="book-detail-description" class="book-detail-description" v-bind:class="{ 'expanded-detail-description': isDescriptionExpanded }">
+            {{focusedBook.description}}
+            <div v-show="isDescriptionExpanded == false" class="expand-description-indicator" v-on:click="expandDescription">
+                <i class="fas fa-angle-down"></i>
             </div>
+            <div v-show="isDescriptionExpanded" class="collapse-description-indicator" v-on:click="collapseDescription">
+                <i class="fas fa-angle-up"></i>
+            </div>
+        </div>
+        <div class="book-detail-action-pane">
+            <div id="mark-as-button"
+                 class="action-button book-detail-action-button"
+                 v-bind:class="{ 'expanded-detail-button': hideAddToButton }"
+                 v-on:click="changeMarkAsMenu"
+                 v-show="hideMarkAsButton == false">
+                Mark As...
+            </div>
+            <transition name="fade" v-on:after-leave="afterLeave">
+                <div v-show="isMarkAsMenuExpanded" class="book-detail-sub-button-container">
+                    <div class="action-button book-detail-sub-button">
+                        Currently Reading
+                    </div>
+                    <div class="action-button book-detail-sub-button">
+                        Up Next
+                    </div>
+                    <div class="action-button action-small-button">
+                        Already Read?
+                    </div>
+                </div>
+            </transition>
+            <div id="add-to-button"
+                 class="action-button book-detail-action-button"
+                 v-show="hideAddToButton == false"
+                 v-bind:class="{ 'expanded-detail-button': hideMarkAsButton }"
+                 v-on:click="changeAddToMenu">
+                Add To...
+            </div>
+            <transition name="fade" v-on:after-leave="afterLeave">
+                <div v-show="isAddToMenuExpanded" class="book-detail-sub-button-container">
+                    <div class="action-button book-detail-sub-button">
+                        Bookshelf
+                    </div>
+                    <div class="action-button book-detail-sub-button">
+                        Interested In
+                    </div>
+                </div>
+            </transition>
         </div>
     </div>
 </div>

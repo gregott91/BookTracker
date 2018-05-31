@@ -218,4 +218,108 @@ span.book-rating-out-of {
 div.book-detail-description {
     margin-top: 16px;
     display: inline-block;
+    max-height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+div.expand-description-indicator {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,1));
+    height: 20px;
+    text-align: center;
+    color: #808080;
+    cursor: pointer;
+}
+
+div.expanded-detail-description {
+    max-height: none;
+}
+
+div.collapse-description-indicator {
+    color: #808080;
+    text-align: center;
+    cursor: pointer;
+}
+
+    div.collapse-description-indicator > i {
+        vertical-align: top;
+    }
+
+i.detail-close-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+div.book-detail-action-pane {
+    margin-top: 8px;
+    font-size: 0px;
+}
+
+div.action-button {
+    display: inline-block;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgb(117,44,242);
+}
+
+div.action-small-button {
+    font-size: 11px;
+    margin-left: 6px;
+}
+
+div.book-detail-action-button {
+    margin-right: 8px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0);
+}
+
+    div.book-detail-action-button:hover {
+        background-color: rgb(235, 226, 254);
+    }
+
+div.expanded-detail-button {
+    border: 1px solid rgb(117,44,242);
+    background-color: rgb(149,91,244);
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: white;
+    margin-right: 0px;
+}
+
+    div.expanded-detail-button:hover {
+        background-color: rgb(149,91,244);
+    }
+
+div.book-detail-sub-button {
+    display: inline-block;
+    border: 1px solid rgb(117,44,242);
+    border-left: 0px;
+}
+
+    div.book-detail-sub-button:last-of-type {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+    }
+
+div.book-detail-sub-button-container {
+    display: inline-block;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+#add-to-button {
+    margin-right: 0px;
 }
