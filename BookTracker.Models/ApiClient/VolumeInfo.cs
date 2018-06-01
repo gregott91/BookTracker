@@ -21,5 +21,7 @@ namespace BookTracker.Models.ApiClient
         public string AverageRating { get; set; }
 
         public string RatingsCount { get; set; }
+
+        public string PageCount { get; set; }
     }
 }

@@ -241,11 +241,15 @@ div.expanded-detail-description {
 div.collapse-description-indicator {
     color: #808080;
     text-align: center;
-    cursor: pointer;
 }
 
     div.collapse-description-indicator > i {
         vertical-align: top;
+    }
+
+    div.collapse-description-indicator:hover {
+        background-color: #eee;
+        cursor: pointer;
     }
 
 i.detail-close-icon {
@@ -267,17 +271,20 @@ div.action-button {
     cursor: pointer;
     font-size: 14px;
     color: rgb(117,44,242);
+    vertical-align: top;
 }
 
 div.action-small-button {
     font-size: 11px;
     margin-left: 6px;
+    padding-top: 9px;
 }
 
 div.book-detail-action-button {
     margin-right: 8px;
     border-radius: 2px;
     border: 1px solid rgba(0,0,0,0);
+    transition: all 0.3s;
 }
 
     div.book-detail-action-button:hover {
@@ -287,9 +294,10 @@ div.book-detail-action-button {
 div.expanded-detail-button {
     border: 1px solid rgb(117,44,242);
     background-color: rgb(149,91,244);
+    color: white;
+    transition: none;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    color: white;
     margin-right: 0px;
 }
 
@@ -308,18 +316,18 @@ div.book-detail-sub-button {
         border-bottom-right-radius: 2px;
     }
 
-div.book-detail-sub-button-container {
-    display: inline-block;
+div.book-detail-sub-button-container-upper {
+    display: none;
 }
 
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .2s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
+div.book-detail-sub-button-container-lower {
+    display: none;
 }
 
 #add-to-button {
     margin-right: 0px;
+}
+
+#add-to-sub-buttons-upper {
+    width: 185px;
 }

@@ -72,6 +72,9 @@
                         ({{focusedBook.ratingCount}})
                     </div>
                 </div>
+                <div v-show="focusedBook && focusedBook.pageCount && focusedBook.pageCount.length > 0">
+                    {{focusedBook.pageCount}} pages
+                </div>
                 <div>
                     {{focusedBook.categories}}
                 </div>
@@ -89,13 +92,11 @@
         <div class="book-detail-action-pane">
             <div id="mark-as-button"
                  class="action-button book-detail-action-button"
-                 v-bind:class="{ 'expanded-detail-button': hideAddToButton }"
-                 v-on:click="changeMarkAsMenu"
-                 v-show="hideMarkAsButton == false">
+                 v-on:click="changeMarkAsMenu">
                 Mark As...
             </div>
-            <transition name="fade" v-on:after-leave="afterLeave">
-                <div v-show="isMarkAsMenuExpanded" class="book-detail-sub-button-container">
+            <div id="mark-as-sub-buttons-upper" class="book-detail-sub-button-container-upper">
+                <div id="mark-as-sub-buttons-lower" class="book-detail-sub-button-container-lower">
                     <div class="action-button book-detail-sub-button">
                         Currently Reading
                     </div>
@@ -106,16 +107,14 @@
                         Already Read?
                     </div>
                 </div>
-            </transition>
+            </div>
             <div id="add-to-button"
                  class="action-button book-detail-action-button"
-                 v-show="hideAddToButton == false"
-                 v-bind:class="{ 'expanded-detail-button': hideMarkAsButton }"
                  v-on:click="changeAddToMenu">
                 Add To...
             </div>
-            <transition name="fade" v-on:after-leave="afterLeave">
-                <div v-show="isAddToMenuExpanded" class="book-detail-sub-button-container">
+            <div id="add-to-sub-buttons-upper" class="book-detail-sub-button-container-upper">
+                <div id="add-to-sub-buttons-lower" class="book-detail-sub-button-container-lower">
                     <div class="action-button book-detail-sub-button">
                         Bookshelf
                     </div>
@@ -123,7 +122,7 @@
                         Interested In
                     </div>
                 </div>
-            </transition>
+            </div>
         </div>
     </div>
 </div>

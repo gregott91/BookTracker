@@ -26,5 +26,7 @@ namespace BookTracker.Models.BookViewModels
         public string Rating { get; set; }
 
         public string RatingCount { get; set; }
+
+        public string PageCount { get; set; }
     }
 }

@@ -3,25 +3,25 @@
 var bookDetailApp = new Vue({
     el: '#book-detail-app',
     data: {
+        focusedBook: {},
         isDisplayed: false,
-        focusedBook: null,
         isDescriptionExpanded: false,
-        isMarkAsMenuExpanded: false,
-        hideAddToButton: false,
-        isAddToMenuExpanded: false,
-        hideMarkAsButton: false
     },
     methods: {
+        openDetail: function () {
+            this.resetActionButtons();
+            this.isDisplayed = true;
+        },
         closeDetail: function () {
-            this.isDescriptionExpanded = false;
             this.isDisplayed = false;
             this.focusedBook.isExpanded = false;
-            this.isMarkAsMenuExpanded = false;
-            this.hideAddToButton = false;
-            this.hideMarkAsButton = false;
-            this.isAddToMenuExpanded = false;
+            this.isDescriptionExpanded = false;
         },
         hasPartialStar: function () {
+            if (!this.focusedBook) {
+                return;
+            }
+
             var intRating = parseInt(this.focusedBook.rating);
             var floatRating = parseFloat(this.focusedBook.rating);
 
@@ -40,22 +40,36 @@ var bookDetailApp = new Vue({
             this.isDescriptionExpanded = false;
         },
         changeMarkAsMenu: function () {
-            if (!this.isMarkAsMenuExpanded) {
-                this.hideAddToButton = true;
-            }
-            
-            this.isMarkAsMenuExpanded = !this.isMarkAsMenuExpanded;
+            this.changeActionButtons('#mark-as-button', '#add-to-button', '#mark-as-sub-buttons-upper', '#mark-as-sub-buttons-lower');
         },
         changeAddToMenu: function () {
-            if (!this.isAddToMenuExpanded) {
-                this.hideMarkAsButton = true;
-            }
-
-            this.isAddToMenuExpanded = !this.isAddToMenuExpanded;
+            this.changeActionButtons('#add-to-button', '#mark-as-button', '#add-to-sub-buttons-upper', '#add-to-sub-buttons-lower');
         },
-        afterLeave: function (el, done) {
-            this.hideAddToButton = false;
-            this.hideMarkAsButton = false;
+        changeActionButtons: function (primaryButton, secondaryButton, upperSubButtons, lowerSubButtons) {
+            if ($(secondaryButton).is(":visible")) {
+                $(primaryButton).addClass('expanded-detail-button');
+                $(secondaryButton).hide();
+                $(upperSubButtons).css('display', 'inline-block');
+                $(lowerSubButtons).show('slide', { direction: 'left' }, 300);
+            } else {
+                $(lowerSubButtons).hide('slide', {
+                    direction: 'left', complete: function () {
+                        $(upperSubButtons).css('display', 'none');
+                        $(secondaryButton).show();
+                        $(primaryButton).removeClass('expanded-detail-button');
+                    }
+                }, 300);
+            }
+        },
+        resetActionButtons() {
+            this.resetActionButton('#add-to-button', '#add-to-sub-buttons-upper', '#add-to-sub-buttons-lower');
+            this.resetActionButton('#mark-as-button', '#mark-as-sub-buttons-upper', '#mark-as-sub-buttons-lower');
+        },
+        resetActionButton(button, upperSubButtons, lowerSubButtons) {
+            $(button).show();
+            $(button).removeClass('expanded-detail-button');
+            $(upperSubButtons).hide();
+            $(lowerSubButtons).hide();
         }
     }
 });
@@ -72,7 +86,7 @@ var bookSearchResultsApp = new Vue({
         bookClicked: function (result) {
             result.isExpanded = true;
             bookDetailApp.focusedBook = result;
-            bookDetailApp.isDisplayed = true;
+            bookDetailApp.openDetail();
         }
     },
     updated: function () {
@@ -95,7 +109,7 @@ var bookSearchApp = new Vue({
     },
     methods: {
         searchBooks: function () {
-            if (bookSearchApp.bookSearchQuery.length == 0) {
+            if ((!bookSearchApp.bookSearchQuery) || bookSearchApp.bookSearchQuery.length == 0) {
                 return;
             }
 

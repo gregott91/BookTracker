@@ -46,6 +46,7 @@ namespace BookTracker.Controllers
                 model.Rating = result.VolumeInfo?.AverageRating;
                 model.RatingCount = result.VolumeInfo?.RatingsCount;
                 model.PublishedDate = result.VolumeInfo?.PublishedDate;
+                model.PageCount = result.VolumeInfo?.PageCount;
 
                 if (result.VolumeInfo?.Authors != null)
                 {
