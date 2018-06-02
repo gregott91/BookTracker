@@ -21,12 +21,14 @@ namespace BookTracker.Models.BookViewModels
 
         public bool IsExpanded { get; set; }
 
-        public string Categories { get; set; }
+        public string Genres { get; set; }
 
         public string Rating { get; set; }
 
         public string RatingCount { get; set; }
 
         public string PageCount { get; set; }
+
+        public string Isbn { get; set; }
     }
 }

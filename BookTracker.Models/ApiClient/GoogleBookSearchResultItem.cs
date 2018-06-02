@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BookTracker.Models.ApiClient
 {
-    public class BookSearchResultItem
+    public class GoogleBookSearchResultItem
     {
         public string Id { get; set; }
 

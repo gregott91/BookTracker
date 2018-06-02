@@ -1,4 +1,5 @@
 ﻿using BookTracker.Logic.ApiClient;
+using BookTracker.Logic.Books;
 using BookTracker.Models.ApiClient;
 using BookTracker.Models.BookViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BookTracker.Controllers
@@ -13,13 +15,6 @@ namespace BookTracker.Controllers
     [Authorize]
     public class BookController : Controller
     {
-        private IBooksClient booksClient;
-
-        public BookController(IBooksClient booksClient)
-        {
-            this.booksClient = booksClient;
-        }
-
         public IActionResult Bookshelf()
         {
             return View();
@@ -30,48 +25,53 @@ namespace BookTracker.Controllers
             return View();
         }
 
-        public async Task<JsonResult> SearchBooksAsync(string searchQuery)
+        public async Task<JsonResult> SearchBooksAsync(string searchQuery, [FromServices] IBooksClient booksClient)
         {
-            BookSearchResult results = await booksClient.SearchBooks(searchQuery);
+            var results = await booksClient.SearchBooks(searchQuery);
 
             List<BookSearchResultViewModel> models = new List<BookSearchResultViewModel>();
 
-            foreach (var result in results.Items)
+            foreach (var result in results)
             {
                 BookSearchResultViewModel model = new BookSearchResultViewModel();
 
-                model.Title = result.VolumeInfo?.Title;
-                model.Description = result.VolumeInfo?.Description;
-                model.CoverImageUrl = result.VolumeInfo?.ImageLinks.Thumbnail;
-                model.Rating = result.VolumeInfo?.AverageRating;
-                model.RatingCount = result.VolumeInfo?.RatingsCount;
-                model.PublishedDate = result.VolumeInfo?.PublishedDate;
-                model.PageCount = result.VolumeInfo?.PageCount;
+                model.Title = result.Title;
+                model.Description = result.Description;
+                model.CoverImageUrl = result.CoverImageUrl;
+                model.Rating = result.Rating == null ? null : result.Rating.ToString();
+                model.RatingCount = result.RatingCount.ToString();
+                model.PublishedDate = result.PublishedDate == null ? null : result.PublishedDate.ToString();
+                model.PageCount = result.PageCount == null ? null : result.PageCount.ToString();
+                model.Isbn = result.Isbn;
 
-                if (result.VolumeInfo?.Authors != null)
+                if (result.Authors != null)
                 {
-                    model.Authors = string.Join(", ", result.VolumeInfo?.Authors);
+                    model.Authors = string.Join(", ", result.Authors);
                 }
 
-                if (result.VolumeInfo?.Categories != null)
+                if (result.Genres != null)
                 {
-                    model.Categories = string.Join(", ", result.VolumeInfo?.Categories);
+                    model.Genres = string.Join(", ", result.Genres);
                 }
 
-                DateTime bookDate;
-                if (DateTime.TryParse(result.VolumeInfo?.PublishedDate, out bookDate))
+                if (result.PublishedDate != null)
                 {
-                    model.Year = bookDate.Year.ToString();
-                }
-                else if (!string.IsNullOrEmpty(result.VolumeInfo?.PublishedDate))
-                {
-                    model.Year = result.VolumeInfo?.PublishedDate;
+                    model.Year = result.PublishedDate.Value.Year.ToString();
                 }
 
                 models.Add(model);
             }
 
             return Json(models);
+        }
+
+        public async Task<JsonResult> GetUserBookProperties(string isbn, [FromServices] IUserBooksLogic booksLogic)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await booksLogic.GetUserBookProperties(userId, isbn);
+
+            return Json(new UserBookPropertiesViewModel());
         }
     }
 }

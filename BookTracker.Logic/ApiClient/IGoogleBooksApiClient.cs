@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookTracker.Logic.ApiClient
 {
-    public interface IBooksClient
+    public interface IGoogleBooksApiClient
     {
-        Task<BookSearchResult> SearchBooks(string searchQuery);
+        Task<GoogleBookSearchResult> SearchBooks(string searchQuery);
     }
 }

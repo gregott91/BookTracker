@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BookTracker.Logic.ApiClient
 {
-    public class GoogleBooksClient : IBooksClient
+    public class GoogleBooksApiClient : IGoogleBooksApiClient
     {
         private HttpClient _client;
-        private ILogger<GoogleBooksClient> _logger;
+        private ILogger<GoogleBooksApiClient> _logger;
         private readonly GoogleApiKey _apiKey;
 
-        public GoogleBooksClient(ILogger<GoogleBooksClient> logger, GoogleApiKey apiKey)
+        public GoogleBooksApiClient(ILogger<GoogleBooksApiClient> logger, GoogleApiKey apiKey)
         {
             _client = new HttpClient();
             _client.BaseAddress = new Uri($"https://www.googleapis.com");
@@ -22,11 +22,11 @@ namespace BookTracker.Logic.ApiClient
             _apiKey = apiKey;
         }
 
-        public async Task<BookSearchResult> SearchBooks(string searchQuery)
+        public async Task<GoogleBookSearchResult> SearchBooks(string searchQuery)
         {
             var queryUrl = new Uri($"/books/v1/volumes?q={searchQuery}", UriKind.Relative);
             var res = await _client.GetAsync(queryUrl);
-            return await res.Content.ReadAsAsync<BookSearchResult>();
+            return await res.Content.ReadAsAsync<GoogleBookSearchResult>();
         }
     }
 }

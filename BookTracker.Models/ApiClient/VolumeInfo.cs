@@ -23,5 +23,7 @@ namespace BookTracker.Models.ApiClient
         public string RatingsCount { get; set; }
 
         public string PageCount { get; set; }
+
+        public IEnumerable<IndustryIdentifier> IndustryIdentifiers { get; set; }
     }
 }

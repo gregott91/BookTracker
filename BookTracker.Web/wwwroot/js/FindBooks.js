@@ -6,11 +6,15 @@ var bookDetailApp = new Vue({
         focusedBook: {},
         isDisplayed: false,
         isDescriptionExpanded: false,
+        isLoading: false
     },
     methods: {
-        openDetail: function () {
+        openDetail: function (result) {
+            this.focusedBook = result;
             this.resetActionButtons();
             this.isDisplayed = true;
+            this.isLoading = true;
+            this.loadBookActions();
         },
         closeDetail: function () {
             this.isDisplayed = false;
@@ -61,15 +65,30 @@ var bookDetailApp = new Vue({
                 }, 300);
             }
         },
-        resetActionButtons() {
+        resetActionButtons: function() {
             this.resetActionButton('#add-to-button', '#add-to-sub-buttons-upper', '#add-to-sub-buttons-lower');
             this.resetActionButton('#mark-as-button', '#mark-as-sub-buttons-upper', '#mark-as-sub-buttons-lower');
         },
-        resetActionButton(button, upperSubButtons, lowerSubButtons) {
+        resetActionButton: function(button, upperSubButtons, lowerSubButtons) {
             $(button).show();
             $(button).removeClass('expanded-detail-button');
             $(upperSubButtons).hide();
             $(lowerSubButtons).hide();
+        },
+        loadBookActions: function () {
+            $.ajax({
+                url: '/Book/GetUserBookProperties?isbn=' + this.focusedBook.isbn,
+                type: 'GET',
+                success: function (data) {
+                    
+                },
+                error: function (data) {
+                    
+                },
+                complete: function () {
+                    this.isLoading = false;
+                }
+            });
         }
     }
 });
@@ -85,8 +104,7 @@ var bookSearchResultsApp = new Vue({
     methods: {
         bookClicked: function (result) {
             result.isExpanded = true;
-            bookDetailApp.focusedBook = result;
-            bookDetailApp.openDetail();
+            bookDetailApp.openDetail(result);
         }
     },
     updated: function () {
@@ -109,7 +127,7 @@ var bookSearchApp = new Vue({
     },
     methods: {
         searchBooks: function () {
-            if ((!bookSearchApp.bookSearchQuery) || bookSearchApp.bookSearchQuery.length == 0) {
+            if ((!bookSearchApp.bookSearchQuery) || bookSearchApp.bookSearchQuery.length === 0) {
                 return;
             }
 

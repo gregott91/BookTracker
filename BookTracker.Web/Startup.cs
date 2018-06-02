@@ -13,6 +13,9 @@ using BookTracker.Models;
 using BookTracker.Services;
 using BookTracker.Logic.ApiClient;
 using BookTracker.Models.ApiClient;
+using BookTracker.Logic.Books;
+using BookTracker.DAL.Books;
+using BookTracker.Models.Connection;
 
 namespace BookTracker
 {
@@ -28,8 +31,10 @@ namespace BookTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(connectionString));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -37,8 +42,12 @@ namespace BookTracker
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<IBooksClient, GoogleBooksClient>();
             services.AddTransient(_ => new GoogleApiKey(Configuration["ApiKeys:BooksApiKey"]));
+            services.AddTransient<IGoogleBooksApiClient, GoogleBooksApiClient>();
+            services.AddTransient<IBooksClient, GoogleBooksClient>();
+            services.AddTransient(_ => new SqliteConnectionString(connectionString));
+            services.AddTransient<IUserBooksRepository, UserBooksRepository>();
+            services.AddTransient<IUserBooksLogic, UserBooksLogic>();
 
             services.AddMvc();
         }

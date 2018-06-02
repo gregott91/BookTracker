@@ -4,8 +4,8 @@ using System.Text;
 
 namespace BookTracker.Models.ApiClient
 {
-    public class BookSearchResult
+    public class GoogleBookSearchResult
     {
-        public IEnumerable<BookSearchResultItem> Items { get; set; }
+        public IEnumerable<GoogleBookSearchResultItem> Items { get; set; }
     }
 }

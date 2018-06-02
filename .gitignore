@@ -334,3 +334,4 @@ ASALocalRun/
 /BookTracker.Web/Data/Migrations
 
 *.sqlite
+/BookTracker.Web/booktracker.sqlite-journal
