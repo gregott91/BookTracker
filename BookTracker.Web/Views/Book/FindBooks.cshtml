@@ -90,36 +90,41 @@
             </div>
         </div>
         <div class="book-detail-action-pane">
-            <div id="mark-as-button"
-                 class="action-button book-detail-action-button"
-                 v-on:click="changeMarkAsMenu">
-                Mark As...
+            <div class="book-action-loading-pane" v-show="isLoading">
+                <i class="fas fa-spinner loading-spinner"></i>
             </div>
-            <div id="mark-as-sub-buttons-upper" class="book-detail-sub-button-container-upper">
-                <div id="mark-as-sub-buttons-lower" class="book-detail-sub-button-container-lower">
-                    <div class="action-button book-detail-sub-button">
-                        Currently Reading
-                    </div>
-                    <div class="action-button book-detail-sub-button">
-                        Up Next
-                    </div>
-                    <div class="action-button action-small-button">
-                        Already Read?
+            <div class="book-detail-action-pane-inner" v-show="!isLoading">
+                <div id="mark-as-button"
+                     class="action-button book-detail-action-button"
+                     v-on:click="changeMarkAsMenu">
+                    Mark As...
+                </div>
+                <div id="mark-as-sub-buttons-upper" class="book-detail-sub-button-container-upper">
+                    <div id="mark-as-sub-buttons-lower" class="book-detail-sub-button-container-lower">
+                        <div class="action-button book-detail-sub-button" v-bind:class="{ 'active-sub-button': focusedBookProperties.isCurrentlyReading }" v-on:click="currentlyReadingClicked">
+                            Currently Reading
+                        </div>
+                        <div class="action-button book-detail-sub-button" v-bind:class="{ 'active-sub-button': focusedBookProperties.isBookToRead }" v-on:click="upNextClicked">
+                            Up Next
+                        </div>
+                        <div class="action-button action-small-button">
+                            Already Read?
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="add-to-button"
-                 class="action-button book-detail-action-button"
-                 v-on:click="changeAddToMenu">
-                Add To...
-            </div>
-            <div id="add-to-sub-buttons-upper" class="book-detail-sub-button-container-upper">
-                <div id="add-to-sub-buttons-lower" class="book-detail-sub-button-container-lower">
-                    <div class="action-button book-detail-sub-button">
-                        Bookshelf
-                    </div>
-                    <div class="action-button book-detail-sub-button">
-                        Interested In
+                <div id="add-to-button"
+                     class="action-button book-detail-action-button"
+                     v-on:click="changeAddToMenu">
+                    Add To...
+                </div>
+                <div id="add-to-sub-buttons-upper" class="book-detail-sub-button-container-upper">
+                    <div id="add-to-sub-buttons-lower" class="book-detail-sub-button-container-lower">
+                        <div class="action-button book-detail-sub-button" v-bind:class="{ 'active-sub-button': focusedBookProperties.isInBookshelf }" v-on:click="bookshelfClicked">
+                            Bookshelf
+                        </div>
+                        <div class="action-button book-detail-sub-button" v-bind:class="{ 'active-sub-button': focusedBookProperties.isInterestedIn }" v-on:click="interestedInClicked">
+                            Interested In
+                        </div>
                     </div>
                 </div>
             </div>

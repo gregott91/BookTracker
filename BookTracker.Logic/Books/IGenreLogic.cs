@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BookTracker.Logic.Books
 {
-    public interface IUserBooksLogic
+    public interface IGenreLogic
     {
-        Task<UserBookProperties> GetUserBookPropertiesAsync(string userId, string isbn);
+        Task<IEnumerable<Genre>> SaveGenresAsync(IEnumerable<Genre> genres);
     }
 }

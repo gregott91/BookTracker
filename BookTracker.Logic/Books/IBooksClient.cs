@@ -10,6 +10,6 @@ namespace BookTracker.Logic.Books
 {
     public interface IBooksClient
     {
-        Task<IEnumerable<BookSearchResult>> SearchBooks(string searchQuery);
+        Task<IEnumerable<BookSearchResult>> SearchBooksAsync(string searchQuery);
     }
 }

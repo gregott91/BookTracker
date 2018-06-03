@@ -17,9 +17,9 @@ namespace BookTracker.Logic.Books
             this.apiClient = apiClient;
         }
 
-        public async Task<IEnumerable<BookSearchResult>> SearchBooks(string searchQuery)
+        public async Task<IEnumerable<BookSearchResult>> SearchBooksAsync(string searchQuery)
         {
-            var apiResults = await apiClient.SearchBooks(searchQuery);
+            var apiResults = await apiClient.SearchBooksAsync(searchQuery);
 
             var results = new List<BookSearchResult>();
 

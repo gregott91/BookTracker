@@ -8,6 +8,6 @@ namespace BookTracker.Logic.ApiClient
 {
     public interface IGoogleBooksApiClient
     {
-        Task<GoogleBookSearchResult> SearchBooks(string searchQuery);
+        Task<GoogleBookSearchResult> SearchBooksAsync(string searchQuery);
     }
 }

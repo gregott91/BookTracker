@@ -16,9 +16,9 @@ namespace BookTracker.Logic.Books
             this.booksRepository = booksRepository;
         }
 
-        public async Task<UserBookProperties> GetUserBookProperties(string userId, string isbn)
+        public async Task<UserBookProperties> GetUserBookPropertiesAsync(string userId, string isbn)
         {
-            return await booksRepository.GetUserBookProperties(userId, isbn);
+            return await booksRepository.GetUserBookPropertiesAsync(userId, isbn);
         }
     }
 }

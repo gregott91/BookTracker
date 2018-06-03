@@ -16,6 +16,7 @@ using BookTracker.Models.ApiClient;
 using BookTracker.Logic.Books;
 using BookTracker.DAL.Books;
 using BookTracker.Models.Connection;
+using BookTracker.Logic.Image;
 
 namespace BookTracker
 {
@@ -48,6 +49,14 @@ namespace BookTracker
             services.AddTransient(_ => new SqliteConnectionString(connectionString));
             services.AddTransient<IUserBooksRepository, UserBooksRepository>();
             services.AddTransient<IUserBooksLogic, UserBooksLogic>();
+            services.AddTransient<IBookLogic, BookLogic>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IGenreRepository, GenreRepository>();
+            services.AddTransient<IBookRepository, BookRepository>();
+            services.AddTransient<IAuthorLogic, AuthorLogic>();
+            services.AddTransient<IGenreLogic, GenreLogic>();
+            services.AddTransient<IImageLogic, ImageLogic>();
+            services.AddTransient<IBookPropertiesLogic, BookPropertiesLogic>();
 
             services.AddMvc();
         }

@@ -263,6 +263,7 @@ i.detail-close-icon {
 div.book-detail-action-pane {
     margin-top: 8px;
     font-size: 0px;
+    height: 32px;
 }
 
 div.action-button {
@@ -316,6 +317,10 @@ div.book-detail-sub-button {
         border-bottom-right-radius: 2px;
     }
 
+    div.book-detail-sub-button:hover {
+        background-color: rgb(235, 226, 254);
+    }
+
 div.book-detail-sub-button-container-upper {
     display: none;
 }
@@ -331,3 +336,79 @@ div.book-detail-sub-button-container-lower {
 #add-to-sub-buttons-upper {
     width: 185px;
 }
+
+div.disabled-action-button {
+    color: #eee;
+    cursor: default;
+}
+
+    div.disabled-action-button:hover {
+        background-color: initial;
+    }
+
+i.loading-spinner {
+    -webkit-animation-name: load-spin;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: load-spin;
+    -moz-animation-duration: 2000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: load-spin;
+    -ms-animation-duration: 2000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-name: load-spin;
+    animation-duration: 2000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    margin-top: 6px;
+}
+
+@-moz-keyframes load-spin {
+    from {
+        -moz-transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes load-spin {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes load-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+div.book-action-loading-pane {
+    height: 32px;
+    width: 300px;
+    font-size: 18px;
+    text-align: center;
+}
+
+div.active-sub-button {
+    background-color: rgb(166,118,244);
+    color: white;
+    font-weight: bold;
+}
+
+    div.active-sub-button:hover {
+        background-color: initial;
+    }

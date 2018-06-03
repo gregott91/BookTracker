@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BookTracker.Logic.Books
 {
-    public interface IBookClient
+    public interface IBookLogic
     {
-        Task<Book> GetBookByIsbn(string isbn);
+        Task<Book> GetBookByIsbnAsync(string isbn);
+
+        Task<Book> SaveBookAsync(Book book);
     }
 }

@@ -22,7 +22,7 @@ namespace BookTracker.Logic.ApiClient
             _apiKey = apiKey;
         }
 
-        public async Task<GoogleBookSearchResult> SearchBooks(string searchQuery)
+        public async Task<GoogleBookSearchResult> SearchBooksAsync(string searchQuery)
         {
             var queryUrl = new Uri($"/books/v1/volumes?q={searchQuery}", UriKind.Relative);
             var res = await _client.GetAsync(queryUrl);

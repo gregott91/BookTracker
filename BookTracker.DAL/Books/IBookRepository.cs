@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BookTracker.DAL.Books
 {
-    public interface IUserBooksRepository
+    public interface IBookRepository
     {
-        Task<UserBookProperties> GetUserBookPropertiesAsync(string userId, string bookIsbn);
+        Task<Book> GetBookByIsbnAsync(string isbn);
+
+        Task<Book> SaveBookAsync(Book book);
     }
 }

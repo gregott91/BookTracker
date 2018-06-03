@@ -12,6 +12,6 @@ namespace BookTracker.Models.Books
 
         public UserBookReading UserBookReading { get; set; }
 
-        public UserBookHistory UserBookHistory { get; set; }
+        public IEnumerable<UserBookHistory> UserBookHistory { get; set; }
     }
 }
